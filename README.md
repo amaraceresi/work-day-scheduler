@@ -1,6 +1,6 @@
 # work-day-scheduler
 
-![screen shot](./assets/demo.png)
+![screen shot](./Assets/demo.png)
 
 # Work Day Scheduler #
 
