@@ -1,16 +1,43 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+var saveBtn = $(".saveBtn");
+var dateHeader = $("#currentDay");
+var timeBlock = $(".time-block");
 
-$(document).ready(function () {
+$(function () {
+  dateHeader.text(dayjs().format("ddd, MMMM D YYYY"));
+  timeBlock.each(function () {
+    var current = dayjs().hour();
+    var blockId = $(this).attr("id");
+    if (blockId < current) {
+      $(this)
+        .children(".description")
+        .attr("class", "col-8 col-md-10 description past");
+    }
+    if (blockId > current) {
+      $(this)
+        .children(".description")
+        .attr("class", "col-8 col-md-10 description future");
+    }
+    if (blockId == current) {
+      $(this)
+        .children(".description")
+        .attr("class", "col-8 col-md-10 description present");
+    }
+  });
 
-  $('#hour-9 .description').val(localStorage.getItem("hour-9"));
-  $('#hour-10 .description').val(localStorage.getItem("hour-10"));
-  $('#hour-11 .description').val(localStorage.getItem("hour-11"));
-  $('#hour-12 .description').val(localStorage.getItem("hour-12"));
-  $('#hour-13 .description').val(localStorage.getItem("hour-13"));
-  $('#hour-14 .description').val(localStorage.getItem("hour-14"));
-  $('#hour-15 .description').val(localStorage.getItem("hour-15"));
-  $('#hour-16 .description').val(localStorage.getItem("hour-16"));
-}
+  saveBtn.on("click", function (event) {
+    event.preventDefault();
+    var value = $(this).siblings(".description").val().replace(key);
+    var key = $(this).parent().attr("id");
+    localStorage.setItem(key, JSON.stringify(value));
+  });
 
+  $("#9 .description").val(JSON.parse(localStorage.getItem("9")));
+  $("#10 .description").val(JSON.parse(localStorage.getItem("10")));
+  $("#11 .description").val(JSON.parse(localStorage.getItem("11")));
+  $("#12 .description").val(JSON.parse(localStorage.getItem("12")));
+  $("#13 .description").val(JSON.parse(localStorage.getItem("13")));
+  $("#14 .description").val(JSON.parse(localStorage.getItem("14")));
+  $("#15 .description").val(JSON.parse(localStorage.getItem("15")));
+  $("#16 .description").val(JSON.parse(localStorage.getItem("16")));
+  $("#17 .description").val(JSON.parse(localStorage.getItem("17")));
+});
